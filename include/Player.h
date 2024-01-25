@@ -34,7 +34,11 @@ class Player {
         const int& getHPMax() const;
 
         // Functions
-        void updateInput();
-        void update(const sf::RenderTarget* target);
+        void setStartPosition(float x, float y);
+
+        void updateInput(sf::RenderTarget* target);
+        void updateBorders(sf::RenderTarget* target);
+
+        void update(sf::RenderTarget* target);
         void render(sf::RenderTarget* target);
 };

@@ -12,6 +12,7 @@ void Game::initWindow()
     this->videoMode = sf::VideoMode(600, 700);
     this->window = new sf::RenderWindow(videoMode, "Swaglords Of Space", sf::Style::Close | sf::Style::Titlebar);
     this->window->setFramerateLimit(60);
+    this->player.setStartPosition(static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y));
 }
 
 // Constructor and Destructor
@@ -19,7 +20,6 @@ Game::Game()
 {
     this->initVariables();
     this->initWindow();
-
 }
 
 
