@@ -10,18 +10,17 @@
 class Player {
     private:
         // Player texture
-        sf::Sprite shape;
+        sf::Sprite sprite;
         sf::Texture texture;
 
-
+        // Attributes
         float movementSpeed{};
         int hp{};
         int hpMax{};
 
-
         // Init functions
         void initVariables();
-        void initShape();
+        void initSprite();
 
     public:
         // Constructors and Destructors
@@ -29,12 +28,13 @@ class Player {
         ~Player();
 
         // Accessors
-        sf::Sprite getShape() const;
+        sf::Sprite getSprite() const;
         const int& getHP() const;
         const int& getHPMax() const;
 
         // Functions
         void setStartPosition(float x, float y);
+        sf::Vector2f getCurrentPosition();
 
         void updateInput(sf::RenderTarget* target);
         void updateBorders(sf::RenderTarget* target);

@@ -10,18 +10,18 @@ void Player::initVariables()
 }
 
 
-void Player::initShape() 
+void Player::initSprite()
 {
     if (!texture.loadFromFile("/home/simteam-j/Workspaces/SFML_G3/Assets/spaceships/Spaceship_tut.png"))
         std::cerr << "ERROR::PLAYER::Failed to load texture\n";
-    this->shape.setTexture(texture);
-    this->shape.setScale(0.4f, 0.3f);
+    this->sprite.setTexture(texture);
+    this->sprite.setScale(0.4f, 0.3f);
 }
 
 
 Player::Player() {
     this->initVariables();
-    this->initShape();
+    this->initSprite();
 }
 
 
@@ -30,8 +30,8 @@ Player::~Player() {
 }
 
 
-sf::Sprite Player::getShape() const {
-    return this->shape;
+sf::Sprite Player::getSprite() const {
+    return this->sprite;
 }
 
 const int &Player::getHP() const {
@@ -44,19 +44,20 @@ const int &Player::getHPMax() const {
 
 void Player::updateInput(sf::RenderTarget* target) {
     // Player position
-    sf::Vector2f position = this->shape.getPosition();
+    sf::Vector2f position = this->sprite.getPosition();
     sf::Vector2f border = static_cast<sf::Vector2f>(target->getSize());
-    sf::FloatRect shapeSize = this->shape.getGlobalBounds();
+    sf::FloatRect shapeSize = this->sprite.getGlobalBounds();
 
     // Player movement with keyboard
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) && position.y >= this->movementSpeed)
-        this->shape.move(0.f, -this->movementSpeed);
+        this->sprite.move(0.f, -this->movementSpeed);
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) && position.y <= border.y - this->movementSpeed - shapeSize.height)
-        this->shape.move(0.f, this->movementSpeed);
+        this->sprite.move(0.f, this->movementSpeed);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) && position.x >= this->movementSpeed)
-        this->shape.move(-this->movementSpeed, 0.f);
+        this->sprite.move(-this->movementSpeed, 0.f);
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && position.x <= border.x - this->movementSpeed - shapeSize.width)
-        this->shape.move(this->movementSpeed, 0.f);
+        this->sprite.move(this->movementSpeed, 0.f);
+
 }
 
 void Player::update(sf::RenderTarget *target) {
@@ -65,18 +66,18 @@ void Player::update(sf::RenderTarget *target) {
 }
 
 void Player::render(sf::RenderTarget *target) {
-    target->draw(this->shape);
+    target->draw(this->sprite);
 }
 
 void Player::setStartPosition(float x, float y) {
-    sf::FloatRect shape_borders = this->shape.getGlobalBounds();
-    this->shape.setPosition(x - shape_borders.width / 2.f, y - shape_borders.height);
+    sf::FloatRect shape_borders = this->sprite.getGlobalBounds();
+    this->sprite.setPosition(x - shape_borders.width / 2.f, y - shape_borders.height);
 }
 
 void Player::updateBorders(sf::RenderTarget* target) {
 
 }
 
-
-
-
+sf::Vector2f Player::getCurrentPosition() {
+    return this->sprite.getPosition();
+}

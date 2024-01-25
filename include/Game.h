@@ -5,19 +5,22 @@
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
+#include <vector>
 
 #include "Player.h"
+#include "Projectile.h"
 
 
 class Game {
     private:
         sf::VideoMode videoMode;
         sf::RenderWindow* window{};
-        bool endGame{};
-        sf::Event sfmlEvent{};
 
         // Player object
         Player player;
+
+        // Projectiles vector
+        std::vector<Projectile> projectiles;
 
         // init functions
         void initVariables();
@@ -28,9 +31,10 @@ class Game {
         ~Game();
 
         // Functions
-        bool running() const;
         void pollEvents();
 
         void update();
         void render();
+
+        void run();
 };

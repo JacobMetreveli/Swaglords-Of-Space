@@ -10,6 +10,8 @@ set(SOURCES
     src/Game.cpp
     src/main.cpp
     src/Player.cpp
+        include/Projectile.h
+        src/Projectile.cpp
 )
 
 add_executable(SFML_G2 ${SOURCES})

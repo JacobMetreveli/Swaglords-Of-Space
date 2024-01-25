@@ -3,7 +3,6 @@
 // Init functions
 void Game::initVariables()
 {
-    this->endGame = true;
 }
 
 
@@ -12,7 +11,7 @@ void Game::initWindow()
     this->videoMode = sf::VideoMode(600, 700);
     this->window = new sf::RenderWindow(videoMode, "Swaglords Of Space", sf::Style::Close | sf::Style::Titlebar);
     this->window->setFramerateLimit(60);
-    this->player.setStartPosition(static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y));
+    this->window->setVerticalSyncEnabled(false);
 }
 
 // Constructor and Destructor
@@ -20,6 +19,7 @@ Game::Game()
 {
     this->initVariables();
     this->initWindow();
+    this->player.setStartPosition(static_cast<float>(this->window->getSize().x) / 2.f, static_cast<float>(this->window->getSize().y));
 }
 
 
@@ -28,26 +28,24 @@ Game::~Game()
     delete this->window;
 }
 
-// Check if game is running
-bool Game::running() const
-{
-    return this->endGame;
-}
-
 // Functions
 void Game::pollEvents()
 {
+    sf::Event sfmlEvent{};
     while (this->window->pollEvent(sfmlEvent)) {
-        switch (this->sfmlEvent.type) {
+        switch (sfmlEvent.type) {
             case sf::Event::Closed:
                 this->window->close();
                 break;
 
             case sf::Event::KeyPressed:
-                if (this->sfmlEvent.key.code == sf::Keyboard::Escape)
+                if (sfmlEvent.key.code == sf::Keyboard::Escape)
                     this->window->close();
-                    break;
-                    
+
+                if (sfmlEvent.key.code == sf::Keyboard::Space)
+                    this->projectiles.push_back(Projectile(this->player.getCurrentPosition()));
+                break;
+
             default:
                 break;
         }
@@ -71,4 +69,12 @@ void Game::render()
 
     // Display the contents of the window
     this->window->display();
+}
+
+// Main game loop
+void Game::run() {
+    while (window->isOpen()) {
+        this->update();
+        this->render();
+    }
 }
