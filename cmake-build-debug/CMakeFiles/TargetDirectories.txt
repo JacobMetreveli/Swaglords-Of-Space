@@ -1,0 +1,3 @@
+/home/simteam-j/Workspaces/SFML_G3/cmake-build-debug/CMakeFiles/SFML_G2.dir
+/home/simteam-j/Workspaces/SFML_G3/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/simteam-j/Workspaces/SFML_G3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
