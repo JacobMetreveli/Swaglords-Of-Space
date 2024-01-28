@@ -6,6 +6,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
 
+#include <vector>
 
 class Projectile {
     private:
@@ -14,16 +15,17 @@ class Projectile {
 
         // Init functions
         void initVariables();
-        void initShape(float x, float y);
+        void initShape(sf::Vector2f position, const sf::FloatRect &playerShape);
 
     public:
         // Constructor / Destructor
-        Projectile(float x, float y);
+        explicit Projectile(sf::Vector2f position, const sf::FloatRect &playerShape);
         ~Projectile();
 
-        // Functions
+        // Accessors
         sf::Vector2f getProjectilePos() const;
 
+        // Functions
         void update();
         void render(sf::RenderTarget* target);
 };

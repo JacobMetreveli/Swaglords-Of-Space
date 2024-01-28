@@ -61,7 +61,6 @@ void Player::updateInput(sf::RenderTarget* target) {
 }
 
 void Player::update(sf::RenderTarget *target) {
-    this->updateBorders(target);
     this->updateInput(target);
 }
 
@@ -74,9 +73,6 @@ void Player::setStartPosition(float x, float y) {
     this->sprite.setPosition(x - shape_borders.width / 2.f, y - shape_borders.height);
 }
 
-void Player::updateBorders(sf::RenderTarget* target) {
-
-}
 
 sf::Vector2f Player::getCurrentPosition() {
     return this->sprite.getPosition();

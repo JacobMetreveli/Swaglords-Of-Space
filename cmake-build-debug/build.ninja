@@ -77,6 +77,13 @@ build CMakeFiles/SFML_G2.dir/src/Projectile.cpp.o: CXX_COMPILER__SFML_G2_unscann
   OBJECT_DIR = CMakeFiles/SFML_G2.dir
   OBJECT_FILE_DIR = CMakeFiles/SFML_G2.dir/src
 
+build CMakeFiles/SFML_G2.dir/src/Polygon.cpp.o: CXX_COMPILER__SFML_G2_unscanned_Debug /home/simteam-j/Workspaces/SFML_G3/src/Polygon.cpp || cmake_object_order_depends_target_SFML_G2
+  DEP_FILE = CMakeFiles/SFML_G2.dir/src/Polygon.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/simteam-j/Workspaces/SFML_G3/include
+  OBJECT_DIR = CMakeFiles/SFML_G2.dir
+  OBJECT_FILE_DIR = CMakeFiles/SFML_G2.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target SFML_G2
@@ -85,7 +92,7 @@ build CMakeFiles/SFML_G2.dir/src/Projectile.cpp.o: CXX_COMPILER__SFML_G2_unscann
 #############################################
 # Link the executable SFML_G2
 
-build SFML_G2: CXX_EXECUTABLE_LINKER__SFML_G2_Debug CMakeFiles/SFML_G2.dir/src/Game.cpp.o CMakeFiles/SFML_G2.dir/src/main.cpp.o CMakeFiles/SFML_G2.dir/src/Player.cpp.o CMakeFiles/SFML_G2.dir/src/Projectile.cpp.o | /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-network.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
+build SFML_G2: CXX_EXECUTABLE_LINKER__SFML_G2_Debug CMakeFiles/SFML_G2.dir/src/Game.cpp.o CMakeFiles/SFML_G2.dir/src/main.cpp.o CMakeFiles/SFML_G2.dir/src/Player.cpp.o CMakeFiles/SFML_G2.dir/src/Projectile.cpp.o CMakeFiles/SFML_G2.dir/src/Polygon.cpp.o | /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-network.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
   FLAGS = -g
   LINK_FLAGS = -rdynamic
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1  /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.5.1  /usr/lib/x86_64-linux-gnu/libsfml-network.so.2.5.1  /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1  /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1

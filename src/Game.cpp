@@ -1,10 +1,13 @@
 #include "Game.h"
+#include <iostream>
 
 // Init functions
 void Game::initVariables()
 {
+    this->projectileSpawnTimer = this->projectileMaxTimer;
+    this->enemySpawnTimer = this->enemySpawnTimerMax;
+    this->currEnemyCount = 0;
 }
-
 
 void Game::initWindow()
 {
@@ -12,6 +15,10 @@ void Game::initWindow()
     this->window = new sf::RenderWindow(videoMode, "Swaglords Of Space", sf::Style::Close | sf::Style::Titlebar);
     this->window->setFramerateLimit(60);
     this->window->setVerticalSyncEnabled(false);
+
+    if (!this->bgTexture.loadFromFile("../Assets/background/backgroundSpace_01.1.png"))
+        std::cerr << "ERROR::BACKGROUND::THEME failed to load..." << std::endl;
+    this->background.setTexture(this->bgTexture);
 }
 
 // Constructor and Destructor
@@ -42,10 +49,6 @@ void Game::pollEvents()
                 if (sfmlEvent.key.code == sf::Keyboard::Escape)
                     this->window->close();
 
-                if (sfmlEvent.key.code == sf::Keyboard::Space)
-                    this->projectiles.push_back(Projectile(this->player.getCurrentPosition()));
-                break;
-
             default:
                 break;
         }
@@ -57,15 +60,26 @@ void Game::update()
 {
     this->pollEvents();
     player.update(this->window);
+    this->updateProjectiles();
+    this->updatePolygons();
 }
 
 
 void Game::render()
 {
     // Clear previous frame
-    window->clear(sf::Color::Black);
+    this->window->clear(sf::Color::Black);
+
     // Render stuff
+
+    this->window->draw(this->background);
     player.render(this->window);
+    // Render projectiles
+    for (auto &projectile : this->projectiles)
+        projectile.render(this->window);
+    // Render enemy polygons
+    for (auto &polygon : this->polygons)
+        polygon.render(this->window);
 
     // Display the contents of the window
     this->window->display();
@@ -77,4 +91,39 @@ void Game::run() {
         this->update();
         this->render();
     }
+}
+
+
+void Game::updateProjectiles() {
+    // Projectile spawn and movement
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (this->projectileSpawnTimer % this->projectileMaxTimer) == 0) {
+        this->projectiles.emplace_back(this->player.getCurrentPosition(), this->player.getSprite().getGlobalBounds());
+        this->projectileSpawnTimer = 1;
+    }
+    else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        this->projectileSpawnTimer = this->projectileMaxTimer;
+    else
+        this->projectileSpawnTimer++;
+
+    // Update all the projectiles
+    for (int i = 0; i < projectiles.size(); i++) {
+        if (projectiles[i].getProjectilePos().y < 0)
+            projectiles.erase(projectiles.begin() + i);
+        else
+            projectiles[i].update();
+    }
+}
+
+void Game::updatePolygons() {
+    // Handle projectile spawn
+    if (this->enemySpawnTimer >= this->enemySpawnTimerMax && this->currEnemyCount < this->maxEnemyCount) {
+        polygons.emplace_back(this->window);
+        this->enemySpawnTimer = 0;
+        this->currEnemyCount++;
+    } else {
+        this->enemySpawnTimer++;
+    }
+
+    for (int i = 0; i < polygons.size(); i++)
+        polygons[i].update();
 }

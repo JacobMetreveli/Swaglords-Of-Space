@@ -1,18 +1,19 @@
 #include "Projectile.h"
 
+
 void Projectile::initVariables() {
-    this->movementSpeed = 15.f;
+    this->movementSpeed = -20.f;
 }
 
-void Projectile::initShape(position) {
+void Projectile::initShape(sf::Vector2f position, const sf::FloatRect &playerShape) {
     this->shape.setSize(sf::Vector2f(5.f, 20.f));
     this->shape.setFillColor(sf::Color::Red);
-    this->shape.setPosition()
+    this->shape.setPosition(position.x + playerShape.width / 2, position.y);
 }
 
-Projectile::Projectile(sf::Vector2f position) {
+Projectile::Projectile(sf::Vector2f position, const sf::FloatRect &playerShape) {
     this->initVariables();
-    this->initShape(position);
+    this->initShape(position, playerShape);
 }
 
 Projectile::~Projectile() {
@@ -20,7 +21,7 @@ Projectile::~Projectile() {
 }
 
 void Projectile::update() {
-    this->shape.move(0.f, -this->movementSpeed);
+    this->shape.move(0.f, this->movementSpeed);
 }
 
 void Projectile::render(sf::RenderTarget *target) {

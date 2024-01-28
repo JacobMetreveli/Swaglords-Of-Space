@@ -37,7 +37,6 @@ class Player {
         sf::Vector2f getCurrentPosition();
 
         void updateInput(sf::RenderTarget* target);
-        void updateBorders(sf::RenderTarget* target);
 
         void update(sf::RenderTarget* target);
         void render(sf::RenderTarget* target);
