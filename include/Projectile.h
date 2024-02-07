@@ -24,6 +24,7 @@ class Projectile {
 
         // Accessors
         sf::Vector2f getProjectilePos() const;
+        sf::RectangleShape getProjectileShape() const;
 
         // Functions
         void update();

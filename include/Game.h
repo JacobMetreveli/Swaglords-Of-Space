@@ -25,12 +25,12 @@ class Game {
 
         // Projectiles
         std::vector<Projectile> projectiles;
-        const int projectileMaxTimer{10};
+        const int projectileMaxTimer{30};
         int projectileSpawnTimer{};
 
         // Enemy Polygons
         std::vector<Polygon> polygons;
-        const int enemySpawnTimerMax{20};
+        const int enemySpawnTimerMax{25};
         int enemySpawnTimer{};
         const int maxEnemyCount{12};
         int currEnemyCount{};
@@ -38,18 +38,23 @@ class Game {
         // init functions
         void initVariables();
         void initWindow();
-    public:
-        // Constructor and Destructor
-        Game();
-        ~Game();
 
         // Functions
         void pollEvents();
+
+        void handle_collision();
 
         void updateProjectiles();
         void updatePolygons();
         void update();
 
         void render();
+
+
+    public:
+        // Constructor and Destructor
+        Game();
+        ~Game();
+
         void run();
 };

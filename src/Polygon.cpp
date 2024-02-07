@@ -2,15 +2,13 @@
 #include <ctime>
 
 void Polygon::initVariables() {
-    this->movementSpeed = 1.f;
+    this->movementSpeed = 2.f;
 }
 
 void Polygon::initPolygon(sf::RenderTarget* target) {
-    this->polygon = sf::CircleShape(static_cast<float>(rand() % 60 + 25), rand() % 8);
-    this->polygon.setFillColor(
-            sf::Color(rand() % 255, rand() % 255, rand() % 255)
-            );
-    this->polygon.setPosition(static_cast<float>(rand() % target->getSize().x), 0);
+    this->polygon = sf::CircleShape(static_cast<float>(rand() % 40 + 25), rand() % 8 + 3);
+    this->polygon.setFillColor(sf::Color::Red);
+    this->polygon.setPosition(static_cast<float>(rand() % target->getSize().x - 80), static_cast<float>(rand() % 50 - 100));
 }
 
 Polygon::Polygon(sf::RenderTarget* target) {

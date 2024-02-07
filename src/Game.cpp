@@ -60,8 +60,12 @@ void Game::update()
 {
     this->pollEvents();
     player.update(this->window);
+    this->handle_collision();
     this->updateProjectiles();
     this->updatePolygons();
+
+    // Debug
+    std::cout << this->currEnemyCount << std::endl;
 }
 
 
@@ -117,13 +121,33 @@ void Game::updateProjectiles() {
 void Game::updatePolygons() {
     // Handle projectile spawn
     if (this->enemySpawnTimer >= this->enemySpawnTimerMax && this->currEnemyCount < this->maxEnemyCount) {
-        polygons.emplace_back(this->window);
+        Polygon pol(this->window);
+        polygons.emplace_back(pol);
         this->enemySpawnTimer = 0;
         this->currEnemyCount++;
     } else {
         this->enemySpawnTimer++;
     }
 
-    for (int i = 0; i < polygons.size(); i++)
-        polygons[i].update();
+    for (int i = 0; i < this->polygons.size(); i++) {
+        this->polygons[i].update();
+        if (this->polygons[i].getPolygon().getPosition().y > static_cast<float>(this->window->getSize().y)) {
+            this->polygons.erase(this->polygons.begin() + i);
+            this->currEnemyCount--;
+        }
+    }
+}
+
+void Game::handle_collision() {
+    for (int i = 0; i < this->projectiles.size(); i++) {
+        for (int j = 0; j < this->polygons.size(); j++) {
+            sf::FloatRect projectileBounds = projectiles[i].getProjectileShape().getGlobalBounds();
+            sf::FloatRect polygonBounds = polygons[j].getPolygon().getGlobalBounds();
+            if (projectileBounds.intersects(polygonBounds)) {
+                this->projectiles.erase(this->projectiles.begin() + i);
+                this->polygons.erase(this->polygons.begin() + j);
+                this->currEnemyCount--;
+            }
+        }
+    }
 }

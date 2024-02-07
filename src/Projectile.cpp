@@ -31,3 +31,7 @@ void Projectile::render(sf::RenderTarget *target) {
 sf::Vector2f Projectile::getProjectilePos() const {
     return this->shape.getPosition();
 }
+
+sf::RectangleShape Projectile::getProjectileShape() const {
+    return this->shape;
+}
